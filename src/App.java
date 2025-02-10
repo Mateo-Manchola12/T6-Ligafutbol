@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     static Scanner keyboard = new Scanner(System.in);
+    static ArrayList<Object> listaPer = new ArrayList<Object>();
 
     public static void main(String[] args) throws Exception {
         Integer op = null;

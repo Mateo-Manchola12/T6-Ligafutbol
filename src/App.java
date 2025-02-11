@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.text.StyledEditorKit.BoldAction;
+
+import models.Jugador;
+
 public class App {
     static Scanner keyboard = new Scanner(System.in);
     static ArrayList<Object> listaPer = new ArrayList<Object>();
@@ -42,9 +46,8 @@ public class App {
     public static void runMenuOption(Integer _op) {
         switch (_op) {
             case 1:
-                System.out.println("Opción seleccionada #1");
-                throw new UnsupportedOperationException("Unimplemented method #1");
-            // break;
+                insertaJugador();
+                break;
             case 2:
                 System.out.println("Opción seleccionada #2");
                 throw new UnsupportedOperationException("Unimplemented method #2");
@@ -54,17 +57,14 @@ public class App {
                 throw new UnsupportedOperationException("Unimplemented method #3");
             // break;
             case 4:
-                System.out.println("Opción seleccionada #4");
-                throw new UnsupportedOperationException("Unimplemented method #4");
-            // break;
+                mostrarSoloJugadores();
+                break;
             case 5:
-                System.out.println("Opción seleccionada #5");
-                throw new UnsupportedOperationException("Unimplemented method #5");
-            // break;
+                System.out.println(jugadorMasRegate(listaPer));
+                break;
             case 6:
-                System.out.println("Opción seleccionada #6");
-                throw new UnsupportedOperationException("Unimplemented method #6");
-            // break;
+                System.out.println(jugadorMasRegate(listaPer, 0, new Jugador()));
+                break;
             case 7:
                 System.out.println("Hasta Luego!");
                 break;
@@ -72,5 +72,51 @@ public class App {
                 System.out.println("Indique una opción valida");
                 break;
         }
+    }
+
+    public static void insertaJugador() {
+        String name = InputHelpers.getString("Indique el nombre del jugador", 2);
+        String position = InputHelpers.getString("Indique el posición del jugador", 2);
+        Boolean injury = InputHelpers.getBoolean("El jugador esta lesionado");
+        Jugador player = new Jugador(name, position, injury);
+        listaPer.add(player);
+
+    }
+
+    public static void mostrarSoloJugadores() {
+        for (Object person : listaPer) {
+            if (person instanceof Jugador) {
+                System.out.println(person);
+            }
+        }
+
+    }
+
+    public static Jugador jugadorMasRegate(ArrayList<Object> arr, int pos, Jugador temp) {
+        if (arr.get(pos) instanceof Jugador) {
+            Jugador jugador = (Jugador) arr.get(pos);
+            if (temp.getRegate() < jugador.getRegate()) {
+                temp = jugador;
+            }
+        }
+
+        if (pos < arr.size() - 1) {
+            return jugadorMasRegate(arr, (pos + 1), temp);
+        } else
+            return temp;
+    }
+
+    public static Jugador jugadorMasRegate(ArrayList<Object> arr) {
+        Jugador temp = new Jugador();
+        for (Object person : arr) {
+            if (person instanceof Jugador) {
+                Jugador jugador = (Jugador) person;
+
+                if (temp.getRegate() < jugador.getRegate()) {
+                    temp = jugador;
+                }
+            }
+        }
+        return temp;
     }
 }

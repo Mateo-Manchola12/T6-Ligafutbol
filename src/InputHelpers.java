@@ -48,7 +48,7 @@ public class InputHelpers {
     public static boolean getBoolean(String msg) {
         String input;
         while (true) {
-            System.out.printf("%n%s (S/N): ", msg);
+            System.out.printf("%n¿%s? (S/N): ", msg);
             input = keyboard.nextLine().trim().toUpperCase();
 
             if (input.equals("S")) {

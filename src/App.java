@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import models.Arbitro;
 import models.Jugador;
 
 public class App {
@@ -18,6 +19,7 @@ public class App {
 
     public static Integer getMenuOption() {
         String menu = """
+
                 \t1) Insertar jugador
                 \t2) Insertar arbitro
                 \t3) Mostrar todos
@@ -42,18 +44,18 @@ public class App {
     }
 
     public static void runMenuOption(Integer _op) {
+        System.out.print("\33[H\033[2J");
+        System.out.flush();
         switch (_op) {
             case 1:
                 insertaJugador();
                 break;
             case 2:
-                System.out.println("Opción seleccionada #2");
-                throw new UnsupportedOperationException("Unimplemented method #2");
-            // break;
+                insertaArbitro();
+                break;
             case 3:
-                System.out.println("Opción seleccionada #3");
-                throw new UnsupportedOperationException("Unimplemented method #3");
-            // break;
+                mostrarTodo();
+                break;
             case 4:
                 mostrarSoloJugadores();
                 break;
@@ -79,6 +81,21 @@ public class App {
         Jugador player = new Jugador(name, position, injury);
         listaPer.add(player);
 
+    }
+
+    public static void insertaArbitro() {
+        String name = InputHelpers.getString("Indique el nombre del arbitro", 2);
+        String college = InputHelpers.getString("Indique el colegio del arbitro", 2);
+        Boolean active = InputHelpers.getBoolean("El arbitro esta activo");
+        Arbitro referee = new Arbitro(name, college, active);
+        listaPer.add(referee);
+
+    }
+
+    public static void mostrarTodo() {
+        for (Object person : listaPer) {
+            System.out.println(person);
+        }
     }
 
     public static void mostrarSoloJugadores() {
